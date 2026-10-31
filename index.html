@@ -57,7 +57,8 @@ function theme(t){if(t){document.documentElement.dataset.theme=t;ls.set('theme',
 theme(ls.get('theme',null));
 $('#tg').onclick=()=>{const d=document.documentElement.dataset.theme||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');theme(d==='dark'?'light':'dark')};
 const b64=bl=>new Promise(r=>{const f=new FileReader();f.onload=()=>r(f.result.split(',')[1]);f.readAsDataURL(bl)});
-async function aiCall(prompt,o={},json){const images=o.images?await Promise.all(o.images.map(b64)):[];const r=await fetch('/api/ai',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt,images,json:!!json})});const raw=await r.text();let d={};try{d=JSON.parse(raw)}catch(e){}if(!r.ok||!d.text)throw {code:'error',message:'HTTP '+r.status+' – '+(d.error||raw.replace(/<[^>]*>/g,' ').trim().slice(0,150)||'empty reply')};return d}
+async function aiCall(p,o,j){for(let i=0;;i++){try{return await aiCall1(p,o,j)}catch(e){if(i<2&&/HTTP (502|503)/.test((e&&e.message)||''))await new Promise(r=>setTimeout(r,2500));else throw e}}}
+async function aiCall1(prompt,o={},json){const images=o.images?await Promise.all(o.images.map(b64)):[];const r=await fetch('/api/ai',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt,images,json:!!json})});const raw=await r.text();let d={};try{d=JSON.parse(raw)}catch(e){}if(!r.ok||!d.text)throw {code:'error',message:'HTTP '+r.status+' – '+(d.error||raw.replace(/<[^>]*>/g,' ').trim().slice(0,150)||'empty reply')};return d}
 const sampleFn=(p,o)=>aiCall(p,o);
 sampleFn.json=async(p,o)=>{const d=await aiCall(p,o,true);const t=d.text.replace(/```json|```/g,'').trim();const m=t.match(/[\[{][\s\S]*[\]}]/);return JSON.parse(m?m[0]:t)};
 sampleFn.limits=async()=>({images:true});
