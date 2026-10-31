@@ -24,7 +24,7 @@ async function pickModels(key) {
 }
 
 async function callModel(key, model, parts, json, think) {
-  const generationConfig = { maxOutputTokens: 4000, temperature: 0.2 };
+  const generationConfig = { maxOutputTokens: 8000, temperature: 0.2 };
   if (json) generationConfig.responseMimeType = 'application/json';
   if (think) generationConfig.thinkingConfig = model.includes('2.5') ? { thinkingBudget: 0 } : { thinkingLevel: 'minimal' };
   const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
