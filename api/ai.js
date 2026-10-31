@@ -15,9 +15,10 @@ async function pickModels(key) {
       .map(x => x.name.replace('models/', ''))
       .filter(n => /^gemini-[\d.]+-flash(-lite)?$/.test(n))
       .sort((a, b) => score(b) - score(a))
-      .slice(0, 3);
+      .slice(0, 5);
   } catch (e) {}
-  if (!m.length) m = ['gemini-3.5-flash', 'gemini-3.5-flash-lite', 'gemini-flash-latest'];
+  if (!m.length) m = ['gemini-3.5-flash', 'gemini-3.5-flash-lite'];
+  m = [...new Set([...m, 'gemini-flash-latest', 'gemini-flash-lite-latest'])];
   cache = { t: Date.now(), m };
   return m;
 }
@@ -30,7 +31,7 @@ async function callModel(key, model, parts, json, think) {
     method: 'POST',
     headers: { 'content-type': 'application/json', 'x-goog-api-key': key },
     body: JSON.stringify({ contents: [{ role: 'user', parts }], generationConfig }),
-    signal: AbortSignal.timeout(25000),
+    signal: AbortSignal.timeout(20000),
   });
   return { r, d: await r.json().catch(() => ({})) };
 }
@@ -56,18 +57,23 @@ module.exports = async (req, res) => {
   const parts = [...images.map(data => ({ inline_data: { mime_type: 'image/jpeg', data } })), { text: prompt }];
   const models = [process.env.GEMINI_MODEL, ...(await pickModels(key))].filter(Boolean);
   const started = Date.now();
-  let lastErr = 'AI provider error';
-  for (const model of models) {
+  const errs = [];
+  for (let round = 0; round < 2; round++) {
+    for (const model of models) {
+      if (Date.now() - started > 48000) break;
+      try {
+        let { r, d } = await callModel(key, model, parts, json, true);
+        if (r.status === 400) ({ r, d } = await callModel(key, model, parts, json, false));
+        if (r.status === 429 && !(d.error && /demand|overload/i.test(d.error.message || ''))) { errs.push(`${model}: rate limit`); continue; }
+        if (!r.ok) { errs.push(`${model}: ${((d.error && d.error.message) || r.status).toString().slice(0, 80)}`); continue; }
+        const text = ((d.candidates || [])[0]?.content?.parts || []).map(p => p.text || '').join('\n');
+        if (!text) { errs.push(`${model}: empty response`); continue; }
+        return res.status(200).json({ text, model });
+      } catch (e) { errs.push(`${model}: ${e.name === 'TimeoutError' ? 'timed out' : e.message}`); }
+    }
     if (Date.now() - started > 40000) break;
-    try {
-      let { r, d } = await callModel(key, model, parts, json, true);
-      if (r.status === 400) ({ r, d } = await callModel(key, model, parts, json, false)); // retry without thinking option
-      if (r.status === 429) return res.status(429).json({ error: 'Free limit reached. Try again later.' });
-      if (!r.ok) { lastErr = `${model}: ${(d.error && d.error.message) || r.status}`; continue; }
-      const text = ((d.candidates || [])[0]?.content?.parts || []).map(p => p.text || '').join('\n');
-      if (!text) { lastErr = `${model}: empty response`; continue; }
-      return res.status(200).json({ text, model });
-    } catch (e) { lastErr = `${model}: ${e.name === 'TimeoutError' ? 'timed out' : e.message}`; }
+    await new Promise(r => setTimeout(r, 1500));
   }
+  const lastErr = errs.length ? errs.slice(-3).join(' | ') : 'AI provider error';
   return res.status(502).json({ error: lastErr });
 };
