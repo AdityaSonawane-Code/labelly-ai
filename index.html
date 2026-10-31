@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Labelly.AI – Scan it. Understand it. Eat smarter.</title>
+<style>
+:root{--bg:#f7f5ef;--card:#fff;--sage:#e8f0e4;--ink:#1f3a2b;--tx:#3a3f3b;--mut:#6d756f;--g:#4a8c5c;--gh:#3d7a4e;--bd:#e3e6df;--warn:#b3261e;--wbg:#fdecea;--amb:#8a5a00;--abg:#fff3d6;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#171c19;--card:#202723;--sage:#27322b;--ink:#dff3e4;--tx:#d8ddd9;--mut:#98a39b;--g:#7fcf99;--gh:#96dbad;--bd:#33403a;--warn:#ff9c94;--wbg:#3a2220;--amb:#f2c66d;--abg:#3a3120;color-scheme:dark}}
+:root[data-theme=dark]{--bg:#171c19;--card:#202723;--sage:#27322b;--ink:#dff3e4;--tx:#d8ddd9;--mut:#98a39b;--g:#7fcf99;--gh:#96dbad;--bd:#33403a;--warn:#ff9c94;--wbg:#3a2220;--amb:#f2c66d;--abg:#3a3120;color-scheme:dark}
+*{box-sizing:border-box}html,body{margin:0}body{background:var(--bg);color:var(--tx);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;transition:background .25s,color .25s;padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+h1,h2,h3{color:var(--ink);line-height:1.2;margin:0 0 .5rem}h1{font-size:1.9rem}h2{font-size:1.3rem}h3{font-size:1.05rem}p{margin:.3rem 0}
+header{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;padding:.7rem 1rem}
+.logo{font-weight:800;color:var(--ink);font-size:1.2rem}.logo b{color:var(--g)}
+main{max-width:760px;margin:0 auto;padding:1rem}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:1rem;margin:.75rem 0;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.btn{background:var(--g);color:#fff;border:0;border-radius:12px;padding:.8rem 1.2rem;font:600 1rem inherit;cursor:pointer;min-height:48px;transition:.15s}.btn:hover{background:var(--gh)}.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn.s{background:var(--sage);color:var(--ink)}.btn.sm{min-height:36px;padding:.4rem .8rem;font-size:.9rem}
+.row{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.6rem}
+nav.b{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--bd);display:flex;padding-bottom:env(safe-area-inset-bottom,0px);z-index:6}
+nav.b button{flex:1;background:none;border:0;color:var(--mut);padding:.6rem 0;font:600 .75rem inherit;cursor:pointer;min-height:56px}nav.b button span{display:block;font-size:1.3rem}nav.b button.on{color:var(--g)}
+.drop{border:2px dashed var(--g);border-radius:16px;padding:1.4rem;text-align:center;background:var(--sage)}
+.th{display:flex;gap:.5rem;flex-wrap:wrap;margin:.6rem 0}.th div{position:relative}.th img{width:84px;height:84px;object-fit:cover;border-radius:12px;border:1px solid var(--bd)}.th button{position:absolute;top:-6px;right:-6px;border-radius:50%;border:0;width:24px;height:24px;background:var(--warn);color:#fff;cursor:pointer}
+.tag{display:inline-block;padding:.15rem .6rem;border-radius:99px;font-size:.8rem;font-weight:600;background:var(--sage);color:var(--ink)}
+.al{background:var(--wbg);color:var(--warn);border-left:5px solid var(--warn);border-radius:10px;padding:.7rem;margin:.4rem 0}.pc{background:var(--abg);color:var(--amb);border-left:5px solid var(--amb);border-radius:10px;padding:.7rem;margin:.4rem 0}.ok{background:var(--sage);color:var(--ink);border-left:5px solid var(--g);border-radius:10px;padding:.7rem;margin:.4rem 0}
+textarea,input,select{width:100%;padding:.7rem;border-radius:10px;border:1px solid var(--bd);background:var(--card);color:var(--tx);font:inherit}
+details{border-bottom:1px solid var(--bd);padding:.5rem 0}summary{cursor:pointer;font-weight:600;color:var(--ink)}
+.bar{height:8px;background:var(--sage);border-radius:99px;overflow:hidden}.bar i{display:block;height:100%;background:var(--g)}.bar i.h{background:var(--warn)}
+.mut{color:var(--mut);font-size:.88rem}table{width:100%;border-collapse:collapse;font-size:.9rem}td,th{padding:.4rem;border-bottom:1px solid var(--bd);text-align:left}.sc{overflow-x:auto}
+.chat{max-height:240px;overflow:auto}.m{padding:.5rem .7rem;border-radius:12px;margin:.3rem 0;background:var(--sage)}.m.u{background:var(--g);color:#fff;margin-left:2rem}
+.spin{display:inline-block;width:16px;height:16px;border:3px solid var(--sage);border-top-color:var(--g);border-radius:50%;animation:r 1s linear infinite;vertical-align:middle}@keyframes r{to{transform:rotate(360deg)}}
+:root{--gl:rgba(74,140,92,.28)}@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--gl:rgba(127,207,153,.22)}}:root[data-theme=dark]{--gl:rgba(127,207,153,.22)}:root[data-theme=light]{--gl:rgba(74,140,92,.28)}
+.btn:not(.s){box-shadow:0 0 14px var(--gl),0 2px 6px var(--gl)}.btn:not(.s):hover{box-shadow:0 0 20px var(--gl),0 2px 8px var(--gl)}.btn:disabled{box-shadow:none}
+.logo b{text-shadow:0 0 10px var(--gl)}nav.b button.on{text-shadow:0 0 10px var(--gl)}nav.b button.on span{filter:drop-shadow(0 0 5px var(--gl))}
+.drop{box-shadow:0 0 22px var(--gl),inset 0 0 18px var(--gl)}.tag{box-shadow:0 0 8px var(--gl)}.ok{box-shadow:0 0 12px var(--gl)}.bar i:not(.h){box-shadow:0 0 8px var(--gl)}.m.u{box-shadow:0 0 10px var(--gl)}input:focus,textarea:focus,select:focus{outline:none;border-color:var(--g);box-shadow:0 0 0 3px var(--gl)}.card:hover{box-shadow:0 0 16px var(--gl)}
+:root{--g:#12d65a;--gh:#0be866;--gl:rgba(18,214,90,.6);--neon:0 0 6px var(--gl),0 0 16px var(--gl),0 0 34px var(--gl)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--g:#39ff88;--gh:#6bffa5;--gl:rgba(57,255,136,.6)}}
+:root[data-theme=dark]{--g:#39ff88;--gh:#6bffa5;--gl:rgba(57,255,136,.6)}
+:root[data-theme=light]{--g:#12d65a;--gh:#0be866;--gl:rgba(18,214,90,.6)}
+.btn:not(.s){color:#04210f;box-shadow:var(--neon)}.btn:not(.s):hover{box-shadow:0 0 8px var(--gl),0 0 24px var(--gl),0 0 48px var(--gl);transform:translateY(-1px)}.btn:disabled{box-shadow:none}
+.m.u{color:#04210f;box-shadow:var(--neon)}.logo b{text-shadow:0 0 8px var(--gl),0 0 20px var(--gl)}.logo{letter-spacing:.3px}
+nav.b button.on{text-shadow:0 0 8px var(--gl),0 0 18px var(--gl)}nav.b button.on span{filter:drop-shadow(0 0 6px var(--gl)) drop-shadow(0 0 12px var(--gl))}
+.drop{border-color:var(--g);box-shadow:var(--neon),inset 0 0 24px var(--gl)}.tag{box-shadow:0 0 10px var(--gl)}.ok{box-shadow:0 0 16px var(--gl);border-left-color:var(--g)}.bar i:not(.h){box-shadow:0 0 10px var(--gl),0 0 20px var(--gl)}
+h1{text-shadow:0 0 18px var(--gl)}.card:hover{box-shadow:0 0 22px var(--gl);border-color:var(--g)}.spin{border-top-color:var(--g);box-shadow:0 0 10px var(--gl)}
+.btn,.btn:hover,.btn:not(.s),.btn:not(.s):hover,.m.u,.drop,.tag,.ok,.bar i,.bar i:not(.h),.card,.card:hover,.spin,input:focus,textarea:focus,select:focus{box-shadow:none!important}.logo b,.logo,h1,nav.b button.on{text-shadow:none!important}nav.b button.on span{filter:none!important}.btn:not(.s):hover{transform:none}input:focus,textarea:focus,select:focus{border-color:var(--g)}
+</style></head><body>
+<header><div class="logo">Labelly<b>.AI</b></div><button class="btn s sm" id="tg" aria-label="Switch theme">🌓 Theme</button></header>
+<main id="app"></main>
+<nav class="b" id="nav"></nav>
+<script>
+const $=s=>document.querySelector(s);
+const ALLERGENS={Peanuts:['peanut','groundnut'],'Tree nuts':['almond','cashew','hazelnut','walnut','pistachio','pecan','macadamia','brazil nut'],Milk:['milk','whey','casein','butter','cheese','cream','lactose','curd','ghee','yogurt','yoghurt','milk solids'],Soy:['soy','soya','lecithin (soy'],Wheat:['wheat','maida','atta','semolina','durum'],Gluten:['gluten','barley','rye','oats','malt','wheat'],Eggs:['egg','albumin','mayonnaise'],Fish:['fish','anchovy','cod','tuna','salmon'],Crustaceans:['shrimp','prawn','crab','lobster'],Sesame:['sesame','tahini','til ']};
+const NAV=[['home','🏠','Home'],['scan','📷','Scan'],['explore','🔎','Explore'],['recipes','🍳','Recipes'],['profile','👤','Profile']];
+const ls={get:(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let S={view:'home',imgs:[],cur:null,hist:ls.get('hist',[]),prof:ls.get('prof',{allergies:[],diet:'None',avoid:''}),busy:'',err:'',rec:null,cmp:[],chat:[],q:''};
+let sample=null,canImg=false;
+function theme(t){if(t){document.documentElement.dataset.theme=t;ls.set('theme',t)}}
+theme(ls.get('theme',null));
+$('#tg').onclick=()=>{const d=document.documentElement.dataset.theme||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');theme(d==='dark'?'light':'dark')};
+const b64=bl=>new Promise(r=>{const f=new FileReader();f.onload=()=>r(f.result.split(',')[1]);f.readAsDataURL(bl)});
+async function aiCall(prompt,o={}){const images=o.images?await Promise.all(o.images.map(b64)):[];const r=await fetch('/api/ai',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt,images})});let d={};try{d=await r.json()}catch(e){}if(!r.ok)throw {code:r.status===429?'rate_limited':'error',message:d.error||'AI request failed'};return d}
+const sampleFn=(p,o)=>aiCall(p,o);
+sampleFn.json=async(p,o)=>{const d=await aiCall(p,o);const t=d.text.replace(/```json|```/g,'').trim();const m=t.match(/[\[{][\s\S]*[\]}]/);return JSON.parse(m?m[0]:t)};
+sampleFn.limits=async()=>({images:true});
+sample=sampleFn;canImg=true;render();
+function go(v){S.view=v;S.err='';render();scrollTo(0,0)}
+function render(){
+$('#nav').innerHTML=NAV.map(n=>`<button class="${S.view===n[0]?'on':''}" onclick="go('${n[0]}')"><span>${n[1]}</span>${n[2]}</button>`).join('');
+const v={home,scan,report,explore,recipes,compare,profile}[S.view];$('#app').innerHTML=v();if(S.view==='report')hookChat()}
+function home(){return `<h1>Know what you eat. Understand what’s inside.</h1><p>Scan it. Understand it. Eat smarter.</p>
+<button class="btn" onclick="go('scan')" style="width:100%;margin:.6rem 0">📷 Scan your food</button>
+<div class="grid">${[['🧪','Ingredient Intelligence','Every ingredient in plain language'],['🛡️','Food Safety','Allergens and nutrient warnings'],['📊','Nutrition','Per serving and per 100 g'],['🏷️','Brand Intelligence','Who makes it'],['⚖️','Compare','Side by side, no hidden score'],['🍳','Recipes','Cook with what you scanned']].map(c=>`<div class="card"><div style="font-size:1.6rem">${c[0]}</div><h3>${c[1]}</h3><p class="mut">${c[2]}</p></div>`).join('')}</div>
+<h2>How it works</h2><div class="card"><p><b>1. Upload</b> front, back, ingredients and nutrition photos.</p><p><b>2. Analyse</b> – AI reads the label; you can correct it.</p><p><b>3. Understand</b> your food, with clear reasons for every warning.</p></div>
+<h2>FAQ</h2><div class="card"><details><summary>Is a product ever “100% safe”?</summary><p>No. Labelly never gives that verdict and never replaces medical advice. Always read the package if you have an allergy.</p></details><details><summary>What if a photo is blurry?</summary><p>Labelly asks for a clearer photo instead of guessing.</p></details><details><summary>Where are my scans stored?</summary><p>Only in this browser, on your device. Photos are not saved. You can delete history in Profile.</p></details></div>
+${S.hist.length?`<h2>Recently scanned</h2>${S.hist.slice(0,3).map((h,i)=>`<div class="card" onclick="openH(${i})" style="cursor:pointer"><b>${esc(h.name||'Unnamed')}</b> <span class="mut">${esc(h.brand||'')}</span></div>`).join('')}`:''}`}
+function scan(){const missing=!S.imgs.length;return `<h2>Upload your food product photographs</h2>
+<div class="drop"><p>Front, back, ingredients, nutrition table, barcode or date.</p><p class="mut">Make sure the ingredient text is clear and readable.</p>
+<div class="row" style="justify-content:center"><label class="btn">📁 Choose photos<input type="file" id="f" accept="image/jpeg,image/png,image/webp" multiple hidden onchange="addF(this.files)"></label><label class="btn s">📸 Camera<input type="file" accept="image/*" capture="environment" hidden onchange="addF(this.files)"></label></div></div>
+<div class="th">${S.imgs.map((x,i)=>`<div><img src="${x.url}" alt="Uploaded photo ${i+1}"><button onclick="rm(${i})" aria-label="Remove photo">×</button></div>`).join('')}</div>
+${S.err?`<div class="al">${esc(S.err)}</div>`:''}
+${sample?'':'<div class="pc">AI analysis is not available in this view. You can still type or paste the ingredient list below.</div>'}
+<button class="btn" style="width:100%" ${missing||S.busy?'disabled':''} onclick="analyse()">${S.busy?'<span class="spin"></span> '+esc(S.busy):'Analyse product'}</button>
+<h3 style="margin-top:1rem">Or paste label text</h3><textarea id="paste" rows="4" placeholder="Paste ingredients and nutrition text here…"></textarea><button class="btn s" style="margin-top:.5rem" onclick="fromText()">Analyse text</button>`}
+async function shrink(file){const b=await createImageBitmap(file);const r=Math.min(1,1200/Math.max(b.width,b.height));const c=document.createElement('canvas');c.width=b.width*r;c.height=b.height*r;c.getContext('2d').drawImage(b,0,0,c.width,c.height);return new Promise(ok=>c.toBlob(bl=>ok(bl),'image/jpeg',.75))}
+async function addF(fs){S.err='';for(const f of fs){if(!/^image\/(jpeg|png|webp)$/.test(f.type)){S.err='Only JPG, PNG and WebP photos are supported.';continue}if(f.size>15e6){S.err='Each photo must be under 15 MB.';continue}try{const bl=await shrink(f);S.imgs.push({blob:bl,url:URL.createObjectURL(bl)})}catch(e){S.err='Could not read that photo. Please try another.'}}S.imgs=S.imgs.slice(0,6);render()}
+function rm(i){S.imgs.splice(i,1);render()}
+const SCHEMA=`Return ONLY JSON: {"readable":true|false,"reason":"why unreadable if false","name":"","brand":"","manufacturer":"","category":"","variant":"","quantity":"","barcode":"","origin":"","ingredients":["in printed order"],"mayContain":["precautionary statements text"],"storage":"","expiry":"","nutrition":{"servingSize":"","per100":{"energyKcal":null,"carbs":null,"sugar":null,"addedSugar":null,"protein":null,"fat":null,"satFat":null,"transFat":null,"fibre":null,"sodiumMg":null},"perServing":{"energyKcal":null,"sugar":null,"protein":null,"fat":null,"sodiumMg":null}}}. Use null for anything not printed. Never guess or invent brand, owner, origin or values. If text is blurry or incomplete set readable:false.`;
+async function analyse(){if(!sample){S.err='AI analysis unavailable. Paste the label text instead.';return render()}if(!canImg){S.err='Image reading is not available here. Paste the label text instead.';return render()}
+try{S.busy='Reading label…';render();const r=await sample.json('Extract structured data from these food packaging photos. '+SCHEMA,{images:S.imgs.map(x=>x.blob),cache:false});finish(r)}catch(e){S.busy='';S.err=e.code==='not_granted'?'Permission to use AI was declined.':'Analysis failed. Your photos are kept; please retry.';render()}}
+async function fromText(){const t=$('#paste').value.trim();if(!t)return;if(!sample){S.err='AI unavailable; text parsing needs it.';return render()}
+try{S.busy='Reading text…';render();const r=await sample.json('Extract structured data from this food label text. '+SCHEMA+'\n\nLABEL TEXT:\n'+t,{cache:false});finish(r)}catch(e){S.busy='';S.err='Analysis failed. Please retry.';render()}}
+function finish(r){S.busy='';if(!r||r.readable===false){S.err=(r&&r.reason)||'The photos are not clear enough. Please upload a sharper photo of the ingredients and nutrition table.';return render()}
+r.ingredients=(r.ingredients||[]).map(String);r.mayContain=r.mayContain||[];S.cur=r;S.chat=[];S.rec=null;S.view='report';render();scrollTo(0,0)}
+function safety(r){const ing=r.ingredients.join(', ').toLowerCase(),may=(r.mayContain||[]).join(' ').toLowerCase(),out=[];
+for(const [a,ks] of Object.entries(ALLERGENS)){const hit=r.ingredients.find(i=>ks.some(k=>i.toLowerCase().includes(k)));if(hit)out.push({t:'Allergen detected',a,why:`Found in ingredient “${hit}”.`,mine:S.prof.allergies.includes(a)});else if(ks.some(k=>may.includes(k)))out.push({t:'Potential concern',a,why:`Precautionary statement on the pack mentions it: “${(r.mayContain||[]).join('; ')}”.`,mine:S.prof.allergies.includes(a)})}
+const n=(r.nutrition||{}).per100||{};const th=[['sugar','Sugar',22.5,'g'],['satFat','Saturated fat',5,'g'],['sodiumMg','Sodium',600,'mg'],['fat','Total fat',17.5,'g']];
+for(const [k,l,t,u] of th)if(n[k]!=null&&n[k]>t)out.push({t:'High nutrient level',a:l,why:`${n[k]} ${u} per 100 g exceeds the ${t} ${u} “high” reference used in UK front-of-pack guidance.`});
+for(const w of S.prof.avoid.split(',').map(x=>x.trim().toLowerCase()).filter(Boolean))if(ing.includes(w))out.push({t:'Potential concern',a:w,why:'On your personal avoid list.',mine:true});
+return out}
+function report(){const r=S.cur;if(!r)return '<p>No product yet.</p>';const sf=safety(r),n=r.nutrition||{},p=n.per100||{};
+const rows=[['Energy','energyKcal','kcal',0],['Carbohydrates','carbs','g',0],['Total sugar','sugar','g',22.5],['Added sugar','addedSugar','g',0],['Protein','protein','g',0],['Total fat','fat','g',17.5],['Saturated fat','satFat','g',5],['Trans fat','transFat','g',0],['Fibre','fibre','g',0],['Sodium','sodiumMg','mg',600]].filter(x=>p[x[1]]!=null);
+return `<div class="row" style="justify-content:space-between"><div><h1>${esc(r.name||'Unnamed product')}</h1><span class="tag">${esc(r.brand||'Brand not shown')}</span> ${r.category?`<span class="tag">${esc(r.category)}</span>`:''}</div></div>
+<div class="card"><h2>🏷️ Product</h2><p class="mut">Only what is printed on the pack. Missing details are left blank, not guessed.</p><table>${[['Manufacturer',r.manufacturer],['Variant',r.variant],['Quantity',r.quantity],['Barcode',r.barcode],['Origin',r.origin],['Expiry',r.expiry],['Storage',r.storage]].filter(x=>x[1]).map(x=>`<tr><td>${x[0]}</td><td>${esc(x[1])}</td></tr>`).join('')||'<tr><td>No extra details were readable.</td></tr>'}</table></div>
+<div class="card"><h2>🛡️ Food safety</h2>${sf.map(s=>`<div class="${s.t==='Allergen detected'?'al':'pc'}"><b>${s.t}: ${esc(s.a)}</b>${s.mine?' ⚠️ matches your profile':''}<br>${esc(s.why)}</div>`).join('')||'<div class="ok">No specific concern detected from the available label information.</div>'}<p class="mut">Labelly can’t guarantee safety for anyone with an allergy from an image. Always check the physical pack. Not medical advice.</p></div>
+<div class="card"><h2>📊 Nutrition (per 100 g/ml)</h2>${n.servingSize?`<p class="mut">Serving: ${esc(n.servingSize)}</p>`:''}${rows.map(x=>{const v=p[x[1]],hi=x[3]&&v>x[3];return `<p><span>${x[0]}</span> <b style="float:right">${v} ${x[2]}</b></p><div class="bar"><i class="${hi?'h':''}" style="width:${x[3]?Math.min(100,v/x[3]*100):Math.min(100,v)}%"></i></div>`}).join('')||'<p class="mut">No nutrition table was readable.</p>'}</div>
+<div class="card"><h2>🧪 Ingredients <span class="mut">(tap to explain, edit if wrong)</span></h2>
+<textarea id="ied" rows="3">${esc(r.ingredients.join(', '))}</textarea><button class="btn s sm" style="margin:.4rem 0" onclick="saveIng()">Update ingredients</button>
+${r.ingredients.map((x,i)=>`<details ontoggle="expl(this,${i})"><summary>${esc(x)}</summary><div class="mut" id="ex${i}">Loading…</div></details>`).join('')}</div>
+<div class="row"><button class="btn" onclick="save()">💾 Save scan</button><button class="btn s" onclick="go('recipes');genRec()">🍳 Discover recipes</button><button class="btn s" onclick="addCmp()">⚖️ Compare</button></div>
+<div class="card"><h2>💬 Food Assistant</h2><div class="chat" id="chat">${S.chat.map(m=>`<div class="m ${m.r==='u'?'u':''}">${esc(m.t)}</div>`).join('')||'<p class="mut">Ask about this product, e.g. “Does this contain milk?”</p>'}</div><div class="row" style="margin-top:.5rem;flex-wrap:nowrap"><input id="q" placeholder="Ask a question…" onkeydown="if(event.key==='Enter')ask()"><button class="btn sm" onclick="ask()">Ask</button></div></div>`}
+function hookChat(){}
+function saveIng(){S.cur.ingredients=$('#ied').value.split(/,(?![^()]*\))/).map(x=>x.trim()).filter(Boolean);render()}
+const exCache={};
+async function expl(el,i){if(!el.open||el.dataset.l)return;el.dataset.l=1;const ing=S.cur.ingredients[i],box=$('#ex'+i);if(exCache[ing]){box.textContent=exCache[ing];return}
+if(!sample){box.textContent='Explanations need AI, which is unavailable here.';return}
+try{const r=await sample('In 2–3 plain sentences, explain the food ingredient “'+ing+'”: what it is, its function in food (preservative, colour, sweetener, emulsifier, etc.), and any well-established regulatory limits if you are sure. Do not call it harmful just because it is artificial. If unsure, say so.',{cache:true});exCache[ing]=r.text;box.textContent=r.text}catch(e){box.textContent='Could not load explanation.'}}
+async function ask(){const q=$('#q').value.trim();if(!q||!sample)return;S.chat.push({r:'u',t:q});S.chat.push({r:'a',t:'…'});render();
+try{const r=await sample('You are Labelly’s food assistant. Answer ONLY from this extracted label data; say when information is unavailable; never invent facts or health claims; simple language; never say a product is 100% safe.\nDATA: '+JSON.stringify(S.cur)+'\nQUESTION: '+q,{cache:false});S.chat[S.chat.length-1].t=r.text}catch(e){S.chat[S.chat.length-1].t='Sorry, I couldn’t answer right now.'}render()}
+function save(){const c={...S.cur,date:Date.now()};S.hist=[c,...S.hist.filter(h=>h.name!==c.name)].slice(0,40);ls.set('hist',S.hist);alert('Saved on this device.')}
+function openH(i){S.cur=S.hist[i];S.chat=[];go('report')}
+function addCmp(){if(!S.cmp.find(c=>c.name===S.cur.name))S.cmp.push(S.cur);go('compare')}
+function explore(){const q=S.q.toLowerCase(),l=S.hist.map((h,i)=>[h,i]).filter(([h])=>!q||(h.name+h.brand+h.ingredients.join(' ')).toLowerCase().includes(q));
+return `<h2>Explore</h2><input placeholder="Search name, brand or ingredient" value="${esc(S.q)}" oninput="S.q=this.value;render();const e=document.querySelector('input');e.focus();e.setSelectionRange(99,99)">
+${l.map(([h,i])=>`<div class="card"><b>${esc(h.name)}</b> <span class="mut">${esc(h.brand||'')}</span><div class="row" style="margin-top:.4rem"><button class="btn s sm" onclick="openH(${i})">Open</button><button class="btn s sm" onclick="S.cmp.push(S.hist[${i}]);go('compare')">Compare</button></div></div>`).join('')||'<div class="card"><p>Nothing here yet. Products you save from scans appear here. A shared verified product database is planned for a later milestone.</p></div>'}`}
+function compare(){if(S.cmp.length<2)return `<h2>Compare products</h2><div class="card"><p>Add at least two products (from a report or Explore). Selected: ${S.cmp.length}.</p>${S.cmp.map(c=>`<span class="tag">${esc(c.name)}</span>`).join(' ')}<button class="btn s sm" onclick="S.cmp=[];render()">Clear</button></div>`;
+const k=[['Energy kcal','energyKcal'],['Sugar g','sugar'],['Added sugar g','addedSugar'],['Protein g','protein'],['Fat g','fat'],['Sat. fat g','satFat'],['Sodium mg','sodiumMg'],['Fibre g','fibre']];
+return `<h2>Compare (per 100 g)</h2><div class="card sc"><table><tr><th></th>${S.cmp.map(c=>`<th>${esc(c.name)}</th>`).join('')}</tr>${k.map(x=>`<tr><td>${x[0]}</td>${S.cmp.map(c=>`<td>${((c.nutrition||{}).per100||{})[x[1]]??'–'}</td>`).join('')}</tr>`).join('')}<tr><td>Allergens</td>${S.cmp.map(c=>`<td>${safety(c).filter(s=>s.t==='Allergen detected').map(s=>s.a).join(', ')||'none detected'}</td>`).join('')}</tr></table><p class="mut">No overall score: the best choice depends on your needs.</p></div><button class="btn s sm" onclick="S.cmp=[];render()">Clear</button>`}
+function recipes(){return `<h2>Recipe discovery</h2><div class="card"><p class="mut">${S.cur?'Using: '+esc(S.cur.name||'scanned product'):'Scan a product first, or list ingredients you have.'}</p><input id="have" placeholder="Ingredients at home (optional)"><div class="grid" style="margin:.5rem 0"><select id="tm"><option>Quick (under 20 min)</option><option>Under 45 min</option><option>Any time</option></select><select id="mt"><option>Any method</option><option>Stovetop</option><option>Oven</option><option>No cooking</option></select></div><button class="btn" onclick="genRec()" ${S.busy?'disabled':''}>${S.busy?'<span class="spin"></span> Cooking up ideas…':'Suggest recipes'}</button></div>${S.err?`<div class="al">${esc(S.err)}</div>`:''}${(S.rec||[]).map(r=>`<div class="card"><h3>${esc(r.name)}</h3><p class="mut">Prep ${esc(r.prep)} · Cook ${esc(r.cook)} · Serves ${esc(r.serves)}</p>${(r.warnings||[]).map(w=>`<div class="pc">${esc(w)}</div>`).join('')}<b>Ingredients</b><ul>${r.ingredients.map(i=>`<li>${esc(i)}</li>`).join('')}</ul><b>Steps</b><ol>${r.steps.map(i=>`<li>${esc(i)}</li>`).join('')}</ol></div>`).join('')}`}
+async function genRec(){if(!sample){S.err='AI is unavailable here.';return render()}S.busy=1;S.err='';render();const have=($('#have')||{}).value||'',tm=($('#tm')||{}).value||'Quick',mt=($('#mt')||{}).value||'Any method';
+try{const r=await sample.json(`Suggest 3 recipes. Return ONLY JSON array of {"name","prep","cook","serves","ingredients":["with quantities"],"steps":[""],"warnings":["allergen or cross-contact notes"]}. Product: ${JSON.stringify(S.cur?{name:S.cur.name,ingredients:S.cur.ingredients}:null)}. At home: ${have}. Time: ${tm}. Method: ${mt}. Diet: ${S.prof.diet}. User allergies to avoid: ${S.prof.allergies.join(', ')||'none'}; avoid: ${S.prof.avoid}. Mention substitutions; never claim cross-contact safety.`,{cache:false});S.rec=Array.isArray(r)?r:r.recipes||[]}catch(e){S.err='Could not generate recipes. Please retry.'}S.busy='';render()}
+function profile(){return `<h2>Profile & settings</h2><div class="card"><h3>Allergies (private, stored on this device)</h3><div class="row">${Object.keys(ALLERGENS).map(a=>`<label class="tag"><input type="checkbox" style="width:auto" ${S.prof.allergies.includes(a)?'checked':''} onchange="tglA('${a}')"> ${a}</label>`).join('')}</div>
+<h3 style="margin-top:.8rem">Diet</h3><select onchange="S.prof.diet=this.value;ls.set('prof',S.prof)">${['None','Vegetarian','Vegan','Eggetarian'].map(d=>`<option ${S.prof.diet===d?'selected':''}>${d}</option>`).join('')}</select>
+<h3 style="margin-top:.8rem">Ingredients to avoid (comma separated)</h3><input value="${esc(S.prof.avoid)}" onchange="S.prof.avoid=this.value;ls.set('prof',S.prof)"></div>
+<div class="card"><h3>Privacy</h3><p class="mut">Photos are processed to read the label and are never stored. Saved scans stay in this browser only.</p><button class="btn s" onclick="if(confirm('Delete all saved scans?')){S.hist=[];ls.set('hist',[]);render()}">Clear history (${S.hist.length})</button></div>
+<div class="card"><h3>About</h3><p class="mut">Labelly.AI explains label information; it is not medical advice. Data comes from the package itself and AI explanations, and AI can make mistakes: verify important details on the pack.</p></div>`}
+function tglA(a){const l=S.prof.allergies,i=l.indexOf(a);i<0?l.push(a):l.splice(i,1);ls.set('prof',S.prof)}
+render();
+</script></body></html>
