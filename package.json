@@ -1,1 +1,1 @@
-{"name":"labelly-ai","version":"1.0.0","private":true}
+{"name":"labelly-ai","version":"1.0.0","private":true,"dependencies":{"@vercel/analytics":"^2.0.1"}}
